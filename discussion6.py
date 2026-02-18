@@ -41,7 +41,7 @@ class HorseRaces:
     def load_results(self, table):
         results = {}
 
-        races = table[0][1]
+        races = table[0][1:]
 
         for row in table[1:]:
             horse = row[0]
@@ -59,18 +59,18 @@ class HorseRaces:
 ###############################################################################
 
     def horse_fastest_race(self, horse):
-        '''
-        Given the name of a horse, return its fastest race and time.
-        If the horse does not exist, return (None, 999.9)
+        if horse not in self.race_dict:
+            return (None, 999.9)
+        
+        fastest_race = None
+        fastest_time = 100000000
 
-        Parameters:
-            horse, name of a race: str
+        for race, time in self.race_dict[horse].items():
+            if time < fastest_time:
+                fastest_time = time
+                fastest_race = race
 
-        Returns:
-            tuple of fastest race name and the time
-            EXAMPLE: ('Teio Sho', 14.8)
-        '''
-        pass
+        return (fastest_race, fastest_time)
 
 ###############################################################################
 ##### TASK 3
